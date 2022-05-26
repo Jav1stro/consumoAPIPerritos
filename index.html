@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>perritos random</title>
+  <link rel="stylesheet" href="./estilos.css">
+</head>
+<body>
+  <h1>PERRITOS RANDOM</h1>
+
+  <span id="error">todo bien</span>
+  <button type="button" id="btn-mas">MÁS</button>
+  <hr>
+  <section class="randomPerritos">
+        
+    <article>
+        <img width="150px" id="img1" alt="foto perrito">
+        <button  id="btn1" onclick="saveFavorites()">
+            Guardar en favoritos
+        </button>
+    </article>
+    <article>
+        <img width="150px" id="img2" alt="foto perrito">
+        <button  id="btn2" onclick="saveFavorites()">
+            Guardar en favoritos</button>
+    </article>
+    <article>
+        <img width="150px" id="img3" alt="foto perrito">
+        <button id="btn3" onclick="saveFavorites()">
+            Guardar en favoritos</button>
+    </article>
+
+  </section>
+  <hr>
+  <section id="perritosFavoritos">
+      <h2>Perritos favoritos</h2>
+    <article>
+        <img width="150px" id="img3" alt="foto perrito">
+        <button >Guardar en favoritos</button>
+    </article>
+  </section>
+
+  <script src="./main.js"></script>
+</body>
+</html>
