@@ -1,9 +1,9 @@
-const API_URL_RANDOM =
-  "https://api.thedogapi.com/v1/images/search?limit=3&api_key=1bd963f6-7c48-4aef-aaf7-3009b2f907ae";
-const API_URL_FAVORITES =
-  "https://api.thedogapi.com/v1/favourites?api_key=1bd963f6-7c48-4aef-aaf7-3009b2f907ae";
-const API_URL_FAVORITES_DELETE = (id) =>
-  `https://api.thedogapi.com/v1/favourites/${id}?api_key=1bd963f6-7c48-4aef-aaf7-3009b2f907ae`;
+const API_URL_RANDOM ="https://api.thedogapi.com/v1/images/search?limit=3";
+  const API_KEY = '1bd963f6-7c48-4aef-aaf7-3009b2f907ae';
+const API_URL_FAVORITES ="https://api.thedogapi.com/v1/favourites";
+const API_URL_FAVORITES_DELETE = (id) =>`https://api.thedogapi.com/v1/favourites/${id}`;
+const API_URL_UPLOAD ="https://api.thedogapi.com/v1/images/upload";
+
 
 const spanError = document.getElementById("error");
 const button = document.getElementById("btn-mas");
@@ -38,7 +38,12 @@ async function loadRandom () {
 };
 
 async function loadFavorites ()  {
-  const res = await fetch(API_URL_FAVORITES);
+  const res = await fetch(API_URL_FAVORITES,{
+      method: 'GET',
+      headers:{
+        'X-API-KEY' : '1bd963f6-7c48-4aef-aaf7-3009b2f907ae'
+      }
+  });
   const data = await res.json();
 
   console.log("favorites:");
@@ -78,6 +83,7 @@ async function saveFavorites(id) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-API-KEY": "1bd963f6-7c48-4aef-aaf7-3009b2f907ae"
     },
     body: JSON.stringify({
       image_id: id,
@@ -96,6 +102,10 @@ async function saveFavorites(id) {
 async function deleteFavorite(id) {
   const res = await fetch(API_URL_FAVORITES_DELETE(id), {
     method: "DELETE",
+    headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": "1bd963f6-7c48-4aef-aaf7-3009b2f907ae"
+      }
   });
   const data = await res.json();
 
@@ -107,5 +117,32 @@ async function deleteFavorite(id) {
   }
 }
 
+async function uploadFoto(){
+
+    const form = document.getElementById('uploadingForm');
+    const formData = new FormData(form);
+
+    console.log(formData.get('file'));
+
+    const res = await fetch(API_URL_UPLOAD,{
+        method: 'POST',
+        headers:{
+            // "Content-Type" : 'multipart/formdata',
+            "X-API-KEY":"1bd963f6-7c48-4aef-aaf7-3009b2f907ae"
+        },
+        body: formData,
+    })
+    const data = await res.json();
+    if (res.status !== 200) {
+        spanError.innerHTML = `Hubo un error al subir perrito: ${res.status} ${data.message}`
+    }
+    else {
+        console.log("Foto de perro cargada :)");
+        console.log({ data });
+        console.log(data.url);
+        saveFavorites(data.id) //para agregar el michi cargado a favoritos.
+
+}
+}
 loadRandom();
 loadFavorites();
