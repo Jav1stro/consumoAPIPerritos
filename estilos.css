@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(32, 32, 32, 0.274);
+  background-color: rgba(25, 135, 209, 0.63);
 }
 h1 {
   text-align: center;
@@ -10,6 +10,8 @@ h1 {
 }
 section{
   text-align: center;
+  padding:20px;
+  background-color:rgba(32, 32, 32, 0.274);
 }
 .randomPerritos {
   display: grid;
